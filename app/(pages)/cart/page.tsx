@@ -7,19 +7,14 @@ import { cookies } from "next/headers";
 
 export default async function CartPage() {
   const session = await getServerSession(authOptions);
-
-  if (!session?.accessToken) {
-    redirect('/login');
-  }
-
   try {
     console.log('🛒 Fetching cart...');
-    
+
     const response = await fetch(
       "https://ecommerce.routemisr.com/api/v1/cart",
       {
         headers: {
-          token: session.accessToken,
+          token: session?.accessToken || "",
         },
         cache: 'no-store'
       }
@@ -34,7 +29,7 @@ export default async function CartPage() {
 
     if (!response.ok) {
       console.log('⚠️ Cart is empty or error');
-      return <Cart cartData={null} token={session.accessToken} />;
+      return <Cart cartData={null} token={session?.accessToken || ""} />;
     }
 
     const data: CartRes = await response.json();
@@ -50,7 +45,7 @@ export default async function CartPage() {
               `https://ecommerce.routemisr.com/api/v1/products/${item.product}`,
               { cache: 'no-store' }
             );
-            
+
             if (productRes.ok) {
               const productData = await productRes.json();
               return {
@@ -72,12 +67,12 @@ export default async function CartPage() {
     return (
       <Cart
         cartData={data.numOfCartItems == 0 ? null : data}
-        token={session.accessToken}
+        token={session?.accessToken || ""}
         userId={userId}
       />
     );
   } catch (error) {
     console.error('❌ Cart fetch error:', error);
-    return <Cart cartData={null} token={session.accessToken} userId={null} />;
+    return <Cart cartData={null} token={session?.accessToken || ""} userId={null} />;
   }
 }
