@@ -35,12 +35,12 @@ const Footer = () => {
 
               <div className="flex items-center text-gray-500 text-sm group">
                 <Phone className="w-4 h-4 mr-2.5 text-gray-600 group-hover:text-[oklch(0.78_0.16_75)] transition-colors" />
-                <span className="group-hover:text-gray-300 transition-colors">(+20)010131888460</span>
+                <span className="group-hover:text-gray-300 transition-colors">(+20)01289767272</span>
               </div>
 
               <div className="flex items-center text-gray-500 text-sm group">
                 <Mail className="w-4 h-4 mr-2.5 text-gray-600 group-hover:text-[oklch(0.78_0.16_75)] transition-colors" />
-                <span className="group-hover:text-gray-300 transition-colors">ahmedsmir200@gmail.com</span>
+                <span className="group-hover:text-gray-300 transition-colors">omarfesal73@gmail.com</span>
               </div>
             </div>
           </div>
