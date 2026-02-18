@@ -30,7 +30,7 @@ export default function Navbar() {
       setWishlistCount(localWishlist.length)
     }
 
-    updateWishlistCount() 
+    updateWishlistCount()
     window.addEventListener("wishlistUpdated", updateWishlistCount)
     return () => window.removeEventListener("wishlistUpdated", updateWishlistCount)
   }, [])
@@ -55,13 +55,13 @@ export default function Navbar() {
     }
 
     fetchCartCount()
-  }, [session?.accessToken]) 
+  }, [session?.accessToken])
 
   return (
     <nav className="sticky top-0 z-50 bg-white p-2 border-b shadow-sm">
       <div className="container mx-auto p-2 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
         <h2 className="text-xl font-bold">
-          <Link href="/">A-Mart</Link>
+          <Link href="/">O-Mart</Link>
         </h2>
 
         <div className="flex-1 flex justify-center">

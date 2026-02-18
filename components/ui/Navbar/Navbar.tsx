@@ -82,7 +82,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-9 h-9 gradient-primary rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-              <span className="text-white font-bold text-lg">A</span>
+              <span className="text-white font-bold text-lg">O</span>
             </div>
             <span className="text-xl font-bold text-foreground tracking-tight">
               Shop<span className="text-gradient">Mart</span>
