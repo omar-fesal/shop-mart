@@ -26,7 +26,7 @@ export default function CheckOutSession({ cartId }: { cartId: string }) {
   const [isCashLoading, setIsCashLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const [cashOpen, setCashOpen] = useState(false)
-  
+
   const [shippingAddress, setShippingAddress] = useState({
     details: "",
     phone: "",
@@ -54,16 +54,16 @@ export default function CheckOutSession({ cartId }: { cartId: string }) {
     setIsLoading(true)
 
     try {
-const baseUrl = window.location.origin      
+      const baseUrl = window.location.origin
       const response = await fetch(
-`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${baseUrl}`,        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            token: session.accessToken,
-          },
-          body: JSON.stringify({ shippingAddress }),
-        }
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${baseUrl}/allorders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: session.accessToken,
+        },
+        body: JSON.stringify({ shippingAddress }),
+      }
       )
 
       const data = await response.json()
@@ -133,7 +133,7 @@ const baseUrl = window.location.origin
             Pay Online
           </Button>
         </DialogTrigger>
-        
+
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Add Shipping Address</DialogTitle>
@@ -190,7 +190,7 @@ const baseUrl = window.location.origin
                 Cancel
               </Button>
             </DialogClose>
-            
+
             <Button
               onClick={handleCheckout}
               disabled={isLoading}
@@ -209,7 +209,7 @@ const baseUrl = window.location.origin
             Cash on Delivery
           </Button>
         </DialogTrigger>
-        
+
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Add Shipping Address</DialogTitle>
@@ -266,7 +266,7 @@ const baseUrl = window.location.origin
                 Cancel
               </Button>
             </DialogClose>
-            
+
             <Button
               onClick={handleCashCheckout}
               disabled={isCashLoading}

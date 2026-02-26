@@ -23,7 +23,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import {  Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
   email: z.string().email("Invalid email").min(1, "Email is required."),
@@ -42,32 +42,37 @@ export default function LoginForm() {
     },
   })
 
- const searchParams = useSearchParams()
+  const searchParams = useSearchParams()
   const redirectUrl = searchParams.get("callbackUrl") || "/"
 
   const [loginError, setLoginError] = React.useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = React.useState<string | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
 
   const onSubmit = async (data: FormData) => {
     setLoginError(null)
+    setSuccessMessage(null)
     setIsLoading(true)
 
     try {
       const response = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: redirectUrl? redirectUrl : "/",
-        redirect: true, 
-        
+        callbackUrl: redirectUrl ? redirectUrl : "/",
+        redirect: false,
+
       })
-      
+
       console.log("signIn response:", response)
 
       if (response?.error) {
         setLoginError("Invalid email or password")
         form.setError("password", { message: "Invalid email or password" })
       } else if (response?.ok) {
-        router.push("/products")
+        setSuccessMessage("Login successful")
+        setTimeout(() => {
+          router.push("/products")
+        }, 1500)
       }
     } catch (error) {
       setLoginError("An unexpected error occurred. Please try again.")
@@ -87,6 +92,16 @@ export default function LoginForm() {
 
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)}>
+          {loginError && (
+            <div className="mb-4 text-sm font-medium text-red-600">
+              {loginError}
+            </div>
+          )}
+          {successMessage && (
+            <div className="mb-4 text-sm font-medium text-green-600">
+              {successMessage}
+            </div>
+          )}
           <FieldGroup>
             <Controller
               name="email"
@@ -117,31 +132,31 @@ export default function LoginForm() {
             />
           </FieldGroup>
 
-<div className="flex justify-between items-center mt-2">
-  <Link href="#" className="text-sm text-blue-600 hover:underline">
-    Change Password
-  </Link>
-  <Link href="#" className="text-sm text-blue-600 hover:underline">
-    Forgot Password?
-  </Link>
-</div>
-          
+          <div className="flex justify-between items-center mt-2">
+            <Link href="#" className="text-sm text-blue-600 hover:underline">
+              Change Password
+            </Link>
+            <Link href="#" className="text-sm text-blue-600 hover:underline">
+              Forgot Password?
+            </Link>
+          </div>
+
         </form>
       </CardContent>
 
       <CardFooter className="flex flex-col gap-3">
-  <Button disabled={isLoading} type="submit" onClick={form.handleSubmit(onSubmit)} className="w-full">
-    {isLoading && <Loader2 className="animate-spin mr-2" size={16} />}
-    Login
-  </Button>
+        <Button disabled={isLoading} type="submit" onClick={form.handleSubmit(onSubmit)} className="w-full">
+          {isLoading && <Loader2 className="animate-spin mr-2" size={16} />}
+          Login
+        </Button>
 
- <p className="text-sm text-center text-gray-600">
-  Don't have an account?{" "}
-  <a href="/register" className="text-blue-600 hover:underline cursor-pointer">
-    Create one here
-  </a>
-</p>
-</CardFooter>
+        <p className="text-sm text-center text-gray-600">
+          Don't have an account?{" "}
+          <a href="/register" className="text-blue-600 hover:underline cursor-pointer">
+            Create one here
+          </a>
+        </p>
+      </CardFooter>
     </Card>
   )
 }

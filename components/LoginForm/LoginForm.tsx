@@ -7,6 +7,7 @@ import * as z from "zod"
 import { signIn } from "next-auth/react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
+import toast from "react-hot-toast"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -45,11 +46,9 @@ export default function LoginForm() {
   const searchParams = useSearchParams()
   const redirectUrl = searchParams.get("callbackUrl") || "/"
 
-  const [loginError, setLoginError] = React.useState<string | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
 
   const onSubmit = async (data: FormData) => {
-    setLoginError(null)
     setIsLoading(true)
 
     try {
@@ -57,20 +56,23 @@ export default function LoginForm() {
         email: data.email,
         password: data.password,
         callbackUrl: redirectUrl ? redirectUrl : "/",
-        redirect: true,
+        redirect: false,
 
       })
 
       console.log("signIn response:", response)
 
       if (response?.error) {
-        setLoginError("Invalid email or password")
+        toast.error("Invalid email or password")
         form.setError("password", { message: "Invalid email or password" })
       } else if (response?.ok) {
-        router.push("/products")
+        toast.success("Login successful")
+        setTimeout(() => {
+          router.push("/products")
+        }, 1500)
       }
     } catch (error) {
-      setLoginError("An unexpected error occurred. Please try again.")
+      toast.error("An unexpected error occurred. Please try again.")
     } finally {
       setIsLoading(false)
     }

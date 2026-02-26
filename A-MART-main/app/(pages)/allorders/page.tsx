@@ -85,8 +85,21 @@ export default async function AllOrdersPage() {
     redirect('/login')
   }
 
-  let userId = (await cookies()).get('userId')?.value || 
-               (await cookies()).get('cartOwnerId')?.value
+  let userId = (await cookies()).get('userId')?.value ||
+    (await cookies()).get('cartOwnerId')?.value
+
+  if (!userId && session?.accessToken) {
+    try {
+      const payloadBase64 = session.accessToken.split('.')[1]
+      if (payloadBase64) {
+        const decodedJson = Buffer.from(payloadBase64, 'base64').toString()
+        const decoded = JSON.parse(decodedJson)
+        if (decoded.id) userId = decoded.id
+      }
+    } catch (e) {
+      console.error('Error decoding token', e)
+    }
+  }
 
   if (!userId) {
     userId = await getUserIdFromCart(session.accessToken)
@@ -164,14 +177,12 @@ export default async function AllOrdersPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    order.isPaid ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
-                  }`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${order.isPaid ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                    }`}>
                     {order.isPaid ? 'Paid' : 'Pending'}
                   </span>
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    order.isDelivered ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'
-                  }`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${order.isDelivered ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'
+                    }`}>
                     {order.isDelivered ? 'Delivered' : 'Processing'}
                   </span>
                 </div>

@@ -23,7 +23,7 @@ export default function Home() {
       try {
         const response = await fetch("https://ecommerce.routemisr.com/api/v1/brands");
         const data = await response.json();
-        
+
         if (data.data) {
           setBrands(data.data);
         }
@@ -43,7 +43,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center py-12 lg:py-20">
             <div className="space-y-6 lg:space-y-10 relative z-10">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase leading-tight lg:leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black uppercase leading-tight lg:leading-[1.1] ">
                 Find Brands<br />
                 That Matches<br />
                 Your Style
@@ -61,27 +61,27 @@ export default function Home() {
               </Link>
 
               <div className="grid grid-cols-3 gap-4 lg:gap-8 pt-8 lg:pt-12">
-  <div className="space-y-1">
-    <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold">
-      <CountUp end={200} duration={2.5} />+
-    </h3>
-    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">International Brands</p>
-  </div>
-  
-  <div className="space-y-1 border-l-2 border-gray-300 pl-4 lg:pl-8">
-    <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold">
-      <CountUp end={2000} duration={2.5} separator="," />+
-    </h3>
-    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">High-Quality Products</p>
-  </div>
-  
-  <div className="space-y-1 border-l-2 border-gray-300 pl-4 lg:pl-8">
-    <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold">
-      <CountUp end={30000} duration={2.5} separator="," />+
-    </h3>
-    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Happy Customers</p>
-  </div>
-</div>
+                <div className="space-y-1">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold">
+                    <CountUp end={200} duration={2.5} />+
+                  </h3>
+                  <p className="text-gray-600 text-xs sm:text-sm lg:text-base">International Brands</p>
+                </div>
+
+                <div className="space-y-1 border-l-2 border-gray-300 pl-4 lg:pl-8">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold">
+                    <CountUp end={2000} duration={2.5} separator="," />+
+                  </h3>
+                  <p className="text-gray-600 text-xs sm:text-sm lg:text-base">High-Quality Products</p>
+                </div>
+
+                <div className="space-y-1 border-l-2 border-gray-300 pl-4 lg:pl-8">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold">
+                    <CountUp end={30000} duration={2.5} separator="," />+
+                  </h3>
+                  <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Happy Customers</p>
+                </div>
+              </div>
             </div>
 
             <div className="relative h-[450px] lg:h-[650px] xl:h-[700px]">

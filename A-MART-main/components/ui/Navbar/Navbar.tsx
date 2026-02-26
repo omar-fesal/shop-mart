@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { signOut, useSession } from "next-auth/react"
 import {
   DropdownMenu,
@@ -20,6 +21,7 @@ import {
 import { useEffect, useState } from "react"
 
 export default function Navbar() {
+  const router = useRouter()
   const { data: session } = useSession()
   const [cartCount, setCartCount] = useState(0)
   const [wishlistCount, setWishlistCount] = useState(0)
@@ -131,23 +133,23 @@ export default function Navbar() {
 
                 {session?.user ? (
                   <>
-                    <DropdownMenuItem asChild>
-                      <Link href="/profile">Profile</Link>
+                    <DropdownMenuItem onSelect={() => router.push("/profile")} className="cursor-pointer">
+                      Profile
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/allorders">My Orders</Link>
+                    <DropdownMenuItem onSelect={() => router.push("/allorders")} className="cursor-pointer">
+                      My Orders
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+                    <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })} className="cursor-pointer">
                       Logout
                     </DropdownMenuItem>
                   </>
                 ) : (
                   <>
-                    <DropdownMenuItem asChild>
-                      <Link href="/login">Login</Link>
+                    <DropdownMenuItem onSelect={() => router.push("/login")} className="cursor-pointer">
+                      Login
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/register">Signup</Link>
+                    <DropdownMenuItem onSelect={() => router.push("/register")} className="cursor-pointer">
+                      Signup
                     </DropdownMenuItem>
                   </>
                 )}
